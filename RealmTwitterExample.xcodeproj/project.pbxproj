@@ -7,10 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5C75E0111D1761A400BF4E61 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C75E00D1D17619700BF4E61 /* Realm.framework */; };
-		5C75E0121D1761A400BF4E61 /* Realm.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5C75E00D1D17619700BF4E61 /* Realm.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		5C75E0131D1761A400BF4E61 /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C75E00E1D17619700BF4E61 /* RealmSwift.framework */; };
-		5C75E0141D1761A400BF4E61 /* RealmSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5C75E00E1D17619700BF4E61 /* RealmSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		5CFB95421CDAB43E00F504B5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CFB95411CDAB43E00F504B5 /* AppDelegate.swift */; };
 		5CFB95471CDAB43E00F504B5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5CFB95451CDAB43E00F504B5 /* Main.storyboard */; };
 		5CFB95491CDAB43E00F504B5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5CFB95481CDAB43E00F504B5 /* Assets.xcassets */; };
@@ -19,62 +15,9 @@
 		5CFB955F1CDABDFF00F504B5 /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CFB955E1CDABDFF00F504B5 /* AuthViewController.swift */; };
 		5CFB95621CDABEFE00F504B5 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CFB95611CDABEFE00F504B5 /* Social.framework */; };
 		5CFB95641CDAC01400F504B5 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CFB95631CDAC01400F504B5 /* Accounts.framework */; };
-		5CFB95AE1CDAD7A800F504B5 /* Freddy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CFB95A11CDAD59B00F504B5 /* Freddy.framework */; };
 		5CFB95BC1CDB118000F504B5 /* Tweet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CFB95BB1CDB118000F504B5 /* Tweet.swift */; };
 		5CFB95BE1CDB11E300F504B5 /* OutboundTweet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CFB95BD1CDB11E300F504B5 /* OutboundTweet.swift */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		5CFB959C1CDAD59B00F504B5 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 5CFB95921CDAD59B00F504B5 /* Freddy.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = DB6ADF3E1C23612000D77BF1;
-			remoteInfo = Freddy;
-		};
-		5CFB959E1CDAD59B00F504B5 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 5CFB95921CDAD59B00F504B5 /* Freddy.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = DB6ADF471C23612000D77BF1;
-			remoteInfo = FreddyTests;
-		};
-		5CFB95A01CDAD59B00F504B5 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 5CFB95921CDAD59B00F504B5 /* Freddy.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = DB6ADF1F1C23610B00D77BF1;
-			remoteInfo = MobileFreddy;
-		};
-		5CFB95A21CDAD59B00F504B5 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 5CFB95921CDAD59B00F504B5 /* Freddy.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = DB6ADF291C23610B00D77BF1;
-			remoteInfo = MobileFreddyTests;
-		};
-		5CFB95A41CDAD59B00F504B5 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 5CFB95921CDAD59B00F504B5 /* Freddy.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = DB6ADF5A1C23612900D77BF1;
-			remoteInfo = TVFreddy;
-		};
-		5CFB95A61CDAD59B00F504B5 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 5CFB95921CDAD59B00F504B5 /* Freddy.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = DB6ADF631C23612A00D77BF1;
-			remoteInfo = TVFreddyTests;
-		};
-		5CFB95A81CDAD59B00F504B5 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 5CFB95921CDAD59B00F504B5 /* Freddy.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = DB6ADF761C23613200D77BF1;
-			remoteInfo = NanoFreddy;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		5C75E0151D1761A400BF4E61 /* Embed Frameworks */ = {
@@ -83,8 +26,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				5C75E0141D1761A400BF4E61 /* RealmSwift.framework in Embed Frameworks */,
-				5C75E0121D1761A400BF4E61 /* Realm.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -92,8 +33,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		5C75E00D1D17619700BF4E61 /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Realm.framework; path = Externals/Realm/1.0.1/Realm.framework; sourceTree = "<group>"; };
-		5C75E00E1D17619700BF4E61 /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RealmSwift.framework; path = Externals/Realm/1.0.1/RealmSwift.framework; sourceTree = "<group>"; };
 		5CFB953E1CDAB43E00F504B5 /* RealmTwitterExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RealmTwitterExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5CFB95411CDAB43E00F504B5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5CFB95461CDAB43E00F504B5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -104,7 +43,6 @@
 		5CFB955E1CDABDFF00F504B5 /* AuthViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
 		5CFB95611CDABEFE00F504B5 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		5CFB95631CDAC01400F504B5 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
-		5CFB95921CDAD59B00F504B5 /* Freddy.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Freddy.xcodeproj; path = Externals/Freddy/Freddy.xcodeproj; sourceTree = "<group>"; };
 		5CFB95BB1CDB118000F504B5 /* Tweet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Tweet.swift; path = Models/Tweet.swift; sourceTree = "<group>"; };
 		5CFB95BD1CDB11E300F504B5 /* OutboundTweet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OutboundTweet.swift; path = Models/OutboundTweet.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -114,9 +52,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5C75E0111D1761A400BF4E61 /* Realm.framework in Frameworks */,
-				5C75E0131D1761A400BF4E61 /* RealmSwift.framework in Frameworks */,
-				5CFB95AE1CDAD7A800F504B5 /* Freddy.framework in Frameworks */,
 				5CFB95641CDAC01400F504B5 /* Accounts.framework in Frameworks */,
 				5CFB95621CDABEFE00F504B5 /* Social.framework in Frameworks */,
 			);
@@ -162,7 +97,6 @@
 		5CFB95651CDAC47E00F504B5 /* Externals */ = {
 			isa = PBXGroup;
 			children = (
-				5CFB95911CDAD59500F504B5 /* Freddy */,
 				5CFB95661CDAC48E00F504B5 /* Realm */,
 			);
 			name = Externals;
@@ -171,32 +105,8 @@
 		5CFB95661CDAC48E00F504B5 /* Realm */ = {
 			isa = PBXGroup;
 			children = (
-				5C75E00D1D17619700BF4E61 /* Realm.framework */,
-				5C75E00E1D17619700BF4E61 /* RealmSwift.framework */,
 			);
 			name = Realm;
-			sourceTree = "<group>";
-		};
-		5CFB95911CDAD59500F504B5 /* Freddy */ = {
-			isa = PBXGroup;
-			children = (
-				5CFB95921CDAD59B00F504B5 /* Freddy.xcodeproj */,
-			);
-			name = Freddy;
-			sourceTree = "<group>";
-		};
-		5CFB95931CDAD59B00F504B5 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				5CFB959D1CDAD59B00F504B5 /* Freddy.framework */,
-				5CFB959F1CDAD59B00F504B5 /* FreddyTests.xctest */,
-				5CFB95A11CDAD59B00F504B5 /* Freddy.framework */,
-				5CFB95A31CDAD59B00F504B5 /* MobileFreddyTests.xctest */,
-				5CFB95A51CDAD59B00F504B5 /* Freddy.framework */,
-				5CFB95A71CDAD59B00F504B5 /* TVFreddyTests.xctest */,
-				5CFB95A91CDAD59B00F504B5 /* Freddy.framework */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		5CFB95AF1CDAFE6E00F504B5 /* Models */ = {
@@ -257,70 +167,12 @@
 			mainGroup = 5CFB95351CDAB43E00F504B5;
 			productRefGroup = 5CFB953F1CDAB43E00F504B5 /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = 5CFB95931CDAD59B00F504B5 /* Products */;
-					ProjectRef = 5CFB95921CDAD59B00F504B5 /* Freddy.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				5CFB953D1CDAB43E00F504B5 /* RealmTwitterExample */,
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		5CFB959D1CDAD59B00F504B5 /* Freddy.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = Freddy.framework;
-			remoteRef = 5CFB959C1CDAD59B00F504B5 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		5CFB959F1CDAD59B00F504B5 /* FreddyTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = FreddyTests.xctest;
-			remoteRef = 5CFB959E1CDAD59B00F504B5 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		5CFB95A11CDAD59B00F504B5 /* Freddy.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = Freddy.framework;
-			remoteRef = 5CFB95A01CDAD59B00F504B5 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		5CFB95A31CDAD59B00F504B5 /* MobileFreddyTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = MobileFreddyTests.xctest;
-			remoteRef = 5CFB95A21CDAD59B00F504B5 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		5CFB95A51CDAD59B00F504B5 /* Freddy.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = Freddy.framework;
-			remoteRef = 5CFB95A41CDAD59B00F504B5 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		5CFB95A71CDAD59B00F504B5 /* TVFreddyTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = TVFreddyTests.xctest;
-			remoteRef = 5CFB95A61CDAD59B00F504B5 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		5CFB95A91CDAD59B00F504B5 /* Freddy.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = Freddy.framework;
-			remoteRef = 5CFB95A81CDAD59B00F504B5 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		5CFB953C1CDAB43E00F504B5 /* Resources */ = {
@@ -473,7 +325,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/Externals/Realm/1.0.1";
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/Externals/Realm";
 				INFOPLIST_FILE = RealmTwitterExample/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.otanistudio.RealmTwitterExample;
@@ -486,7 +338,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/Externals/Realm/1.0.1";
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/Externals/Realm";
 				INFOPLIST_FILE = RealmTwitterExample/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.otanistudio.RealmTwitterExample;

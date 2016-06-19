@@ -7,7 +7,6 @@
 //
 
 import Accounts
-import Freddy
 import RealmSwift
 import Social
 import UIKit
