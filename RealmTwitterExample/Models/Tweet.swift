@@ -10,7 +10,7 @@ import Foundation
 import Freddy
 import RealmSwift
 
-final class Tweet: Object {
+final class Tweet: RealmSwift.Object {
     dynamic var id = 0
     dynamic var message: String!
     
