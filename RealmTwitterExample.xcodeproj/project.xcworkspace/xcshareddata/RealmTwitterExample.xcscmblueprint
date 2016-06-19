@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "1F4B70B37E7116F8B90E48042AB1849C9F2F4CF7",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "6ADA245F937D8ED6D99F5A7865E19F5267A169E2" : 0,
+    "1F4B70B37E7116F8B90E48042AB1849C9F2F4CF7" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "2691EE17-D7D6-475D-A97C-66B1EDBE537F",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "6ADA245F937D8ED6D99F5A7865E19F5267A169E2" : "RealmTwitterExample\/RealmTwitterExample\/Externals\/Freddy\/",
+    "1F4B70B37E7116F8B90E48042AB1849C9F2F4CF7" : "RealmTwitterExample\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "RealmTwitterExample",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "RealmTwitterExample\/RealmTwitterExample.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:otanistudio\/RealmTwitterExample.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "1F4B70B37E7116F8B90E48042AB1849C9F2F4CF7"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/bignerdranch\/Freddy.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "6ADA245F937D8ED6D99F5A7865E19F5267A169E2"
+    }
+  ]
+}
