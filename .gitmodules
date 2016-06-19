@@ -1,0 +1,3 @@
+[submodule "Externals/Freddy"]
+	path = Externals/Freddy
+	url = git@github.com:bignerdranch/Freddy.git
