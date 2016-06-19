@@ -90,16 +90,4 @@ class AuthViewController: UIViewController {
         self.presentViewController(alert, animated: true, completion: nil)
     }
 
-    
-    // MARK: - Navigation
-
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        debugPrint("prepare for segue")
-        if segue.identifier == "ShowTweetsSegue" {
-            let tweetVC = segue.destinationViewController as! TweetViewController
-            tweetVC.account = self.account!
-        }
-    }
- 
-
 }
