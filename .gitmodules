@@ -1,0 +1,3 @@
+[submodule "Externals/realm-cocoa"]
+	path = Externals/realm-cocoa
+	url = git@github.com:realm/realm-cocoa.git
