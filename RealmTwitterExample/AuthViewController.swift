@@ -7,6 +7,7 @@
 //
 
 import Accounts
+import RealmSwift
 import Social
 import UIKit
 
@@ -69,16 +70,26 @@ class AuthViewController: UIViewController {
     }
     
     func performReverseAuth(twAccount: ACAccount) {
-        debugPrint(twAccount.username)
+        debugPrint("using twitter username:", twAccount.username)
         activityIndicator.startAnimating()
+        
+        if let account = self.account where account.username == twAccount.username {
+            debugPrint("same account")
+        } else {
+            let realm = try! Realm()
+            try! realm.write {
+                realm.deleteAll()
+            }
+        }
+        
         self.account = twAccount
         guard let storyboard = self.navigationController?.storyboard else {
             return
         }
         let tweetVC = storyboard.instantiateViewControllerWithIdentifier(String(TweetViewController)) as! TweetViewController
         tweetVC.account = twAccount
+        self.activityIndicator.stopAnimating()
         self.navigationController?.showViewController(tweetVC, sender: self)
-//        self.navigationController?.performSegueWithIdentifier("ShowTweetsSegue", sender: self)
     }
     
     func displayAlertWithMessage(message: String) {
