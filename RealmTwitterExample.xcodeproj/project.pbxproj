@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5C11382A1D1767A000C6873F /* RealmSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5C1138261D17677200C6873F /* RealmSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		5C11382B1D1767AC00C6873F /* Realm.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5C11381C1D17677200C6873F /* Realm.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		5CFB95421CDAB43E00F504B5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CFB95411CDAB43E00F504B5 /* AppDelegate.swift */; };
 		5CFB95471CDAB43E00F504B5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5CFB95451CDAB43E00F504B5 /* Main.storyboard */; };
 		5CFB95491CDAB43E00F504B5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5CFB95481CDAB43E00F504B5 /* Assets.xcassets */; };
@@ -19,6 +21,58 @@
 		5CFB95BE1CDB11E300F504B5 /* OutboundTweet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CFB95BD1CDB11E300F504B5 /* OutboundTweet.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		5C11381B1D17677200C6873F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5C11380E1D17677200C6873F /* Realm.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 5D659ED91BE04556006515A0;
+			remoteInfo = Realm;
+		};
+		5C11381D1D17677200C6873F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5C11380E1D17677200C6873F /* Realm.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 5DD755CF1BE056DE002800DA;
+			remoteInfo = "Realm iOS static";
+		};
+		5C11381F1D17677200C6873F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5C11380E1D17677200C6873F /* Realm.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = E8D89BA31955FC6D00CF2B9A;
+			remoteInfo = Tests;
+		};
+		5C1138211D17677200C6873F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5C11380E1D17677200C6873F /* Realm.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = E856D1DF195614A400FB2FCF;
+			remoteInfo = "iOS static tests";
+		};
+		5C1138231D17677200C6873F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5C11380E1D17677200C6873F /* Realm.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 3F1A5E721992EB7400F45F4C;
+			remoteInfo = TestHost;
+		};
+		5C1138251D17677200C6873F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5C11380E1D17677200C6873F /* Realm.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 5D660FCC1BE98C560021E04F;
+			remoteInfo = RealmSwift;
+		};
+		5C1138271D17677200C6873F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5C11380E1D17677200C6873F /* Realm.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 5D660FD81BE98C7C0021E04F;
+			remoteInfo = "RealmSwift Tests";
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXCopyFilesBuildPhase section */
 		5C75E0151D1761A400BF4E61 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -26,6 +80,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				5C11382B1D1767AC00C6873F /* Realm.framework in Embed Frameworks */,
+				5C11382A1D1767A000C6873F /* RealmSwift.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -33,6 +89,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		5C11380E1D17677200C6873F /* Realm.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Realm.xcodeproj; path = "Externals/realm-cocoa/Realm.xcodeproj"; sourceTree = "<group>"; };
 		5CFB953E1CDAB43E00F504B5 /* RealmTwitterExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RealmTwitterExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5CFB95411CDAB43E00F504B5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5CFB95461CDAB43E00F504B5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -60,6 +117,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5C11380F1D17677200C6873F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				5C11381C1D17677200C6873F /* Realm.framework */,
+				5C11381E1D17677200C6873F /* Realm.framework */,
+				5C1138201D17677200C6873F /* Tests.xctest */,
+				5C1138221D17677200C6873F /* iOS static tests.xctest */,
+				5C1138241D17677200C6873F /* TestHost.app */,
+				5C1138261D17677200C6873F /* RealmSwift.framework */,
+				5C1138281D17677200C6873F /* RealmSwift Tests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		5CFB95351CDAB43E00F504B5 = {
 			isa = PBXGroup;
 			children = (
@@ -105,6 +176,7 @@
 		5CFB95661CDAC48E00F504B5 /* Realm */ = {
 			isa = PBXGroup;
 			children = (
+				5C11380E1D17677200C6873F /* Realm.xcodeproj */,
 			);
 			name = Realm;
 			sourceTree = "<group>";
@@ -167,12 +239,70 @@
 			mainGroup = 5CFB95351CDAB43E00F504B5;
 			productRefGroup = 5CFB953F1CDAB43E00F504B5 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 5C11380F1D17677200C6873F /* Products */;
+					ProjectRef = 5C11380E1D17677200C6873F /* Realm.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				5CFB953D1CDAB43E00F504B5 /* RealmTwitterExample */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		5C11381C1D17677200C6873F /* Realm.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Realm.framework;
+			remoteRef = 5C11381B1D17677200C6873F /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		5C11381E1D17677200C6873F /* Realm.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework.static;
+			path = Realm.framework;
+			remoteRef = 5C11381D1D17677200C6873F /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		5C1138201D17677200C6873F /* Tests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = Tests.xctest;
+			remoteRef = 5C11381F1D17677200C6873F /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		5C1138221D17677200C6873F /* iOS static tests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "iOS static tests.xctest";
+			remoteRef = 5C1138211D17677200C6873F /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		5C1138241D17677200C6873F /* TestHost.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = TestHost.app;
+			remoteRef = 5C1138231D17677200C6873F /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		5C1138261D17677200C6873F /* RealmSwift.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = RealmSwift.framework;
+			remoteRef = 5C1138251D17677200C6873F /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		5C1138281D17677200C6873F /* RealmSwift Tests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "RealmSwift Tests.xctest";
+			remoteRef = 5C1138271D17677200C6873F /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		5CFB953C1CDAB43E00F504B5 /* Resources */ = {

@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import Freddy
 import RealmSwift
 
 final class Tweet: RealmSwift.Object {
