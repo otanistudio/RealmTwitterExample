@@ -208,7 +208,7 @@ class TweetViewController: UITableViewController {
         }
         let cell = tableView.dequeueReusableCell(withIdentifier: TweetCell.reuseID, for: indexPath)
         let outbound = outboundTweets[(indexPath as NSIndexPath).row]
-        cell.textLabel?.text = "\(outbound.message), \(outbound.date)"
+        cell.textLabel?.text = "\(outbound.message!), \(outbound.date!)"
         return cell
     }
     
