@@ -19,14 +19,11 @@ final class OutboundTweet: RealmSwift.Object {
     }
     
     convenience init(message: String) throws {
+        self.init()
         let _date = Date()
-        self.init(
-            message: [
-                "key" : "\(message) \(_date)",
-                "message": message,
-                "date": _date
-            ]
-        )
+        self.date = _date
+        self.key = "\(message) \(_date)"
+        self.message = message
     }
     
 }

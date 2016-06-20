@@ -17,11 +17,9 @@ final class Tweet: RealmSwift.Object {
         return "id"
     }
     
-    convenience init(json: JSON) throws {
-        self.init(
-            value: [
-                "id" : try json.int("id"),
-                "message" : try json.string("text")
-            ])
+    convenience init(id: Int, message: String) throws {
+        self.init()
+        self.id = id
+        self.message = message
     }
 }

@@ -164,12 +164,20 @@ class TweetViewController: UITableViewController {
                 return
             }
             
+            guard let jsonData = data else {
+                debugPrint("failed to get data in response while fetching \(self.timelineURL)")
+                return
+            }
             
-            let responseJSON = try! JSON(data: data)
+            let jsonArray = try! JSONSerialization.jsonObject(with: jsonData, options: .mutableLeaves) as! Array<AnyObject>
+            
             let rlm = try! Realm()
             try! rlm.write {
-                let rlmTweets = try! responseJSON.array().map { tweetJSON -> Tweet in
-                    return try! Tweet(json: tweetJSON)
+                let rlmTweets = jsonArray.map { tweetJSON -> Tweet in
+                    let tweetDict = tweetJSON as! [String : AnyObject]
+                    let id: Int = tweetDict["id"] as! Int
+                    let message: String = tweetDict["text"] as! String
+                    return try! Tweet(id: id, message: message)
                 }
                 rlm.add(rlmTweets, update: true)
             }
