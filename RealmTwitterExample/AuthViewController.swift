@@ -78,7 +78,7 @@ class AuthViewController: UIViewController {
         } else {
             let realm = try! Realm()
             try! realm.write {
-                realm.deleteAll()
+                realm.deleteAllObjects()
             }
         }
         

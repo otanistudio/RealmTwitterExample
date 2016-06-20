@@ -54,26 +54,25 @@ class TweetViewController: UITableViewController {
         // So we'll know which file to open in the OS X Realm Browser
         debugPrint("Realm file location:", Realm.Configuration.defaultConfiguration.fileURL)
         
-        tweets = realm.objects(Tweet).sorted("id", ascending: false)
-        outboundTweets = realm.objects(OutboundTweet).sorted("date")
-            
+        tweets = realm.allObjects(ofType: Tweet.self).sorted(onProperty: "id", ascending: false)
+        outboundTweets = realm.allObjects(ofType: OutboundTweet.self).sorted(onProperty: "date")
         self.navigationItem.rightBarButtonItem?.target = self
         self.navigationItem.rightBarButtonItem?.action = #selector(addTweet)
-        
+
         outboundNotificationToken = outboundTweets.addNotificationBlock{ (changes: RealmCollectionChange) in
             switch changes {
-            case .initial:
+            case .Initial:
                 let indexSet = IndexSet(integer: Section.Outbound)
                 self.tableView.reloadSections(indexSet, with: .fade)
                 break
-            case .update(_, let deletions, let insertions, let modifications):
+            case .Update(_, let deletions, let insertions, let modifications):
                 self.tableView.beginUpdates()
                 self.tableView.insertRows(at: insertions.map { IndexPath(row: $0, section: Section.Outbound) }, with: .fade)
                 self.tableView.deleteRows(at: deletions.map { IndexPath(row: $0, section: Section.Outbound) }, with: .fade)
                 self.tableView.reloadRows(at: modifications.map { IndexPath(row: $0, section: Section.Outbound) }, with: .fade)
                 self.tableView.endUpdates()
                 break
-            case .error(let error):
+            case .Error(let error):
                 debugPrint("outbound tweet notification error", error)
                 break
             }
@@ -81,18 +80,18 @@ class TweetViewController: UITableViewController {
         
         inboundNotificationToken = tweets.addNotificationBlock{ (changes: RealmCollectionChange) in
             switch changes {
-            case .initial:
+            case .Initial:
                 let indexSet = IndexSet(integer: Section.Timeline)
                 self.tableView.reloadSections(indexSet, with: .fade)
                 break
-            case .update(_, let deletions, let insertions, let modifications):
+            case .Update(_, let deletions, let insertions, let modifications):
                 self.tableView.beginUpdates()
                 self.tableView.insertRows(at: insertions.map { IndexPath(row: $0, section: Section.Timeline) }, with: .fade)
                 self.tableView.deleteRows(at: deletions.map { IndexPath(row: $0, section: Section.Timeline) }, with: .fade)
                 self.tableView.reloadRows(at: modifications.map { IndexPath(row: $0, section: Section.Timeline) }, with: .fade)
                 self.tableView.endUpdates()
                 break
-            case .error(let error):
+            case .Error(let error):
                 debugPrint("inbound tweet notification error", error)
                 break
             }
@@ -114,7 +113,7 @@ class TweetViewController: UITableViewController {
     
     func send() {
         let rlm = try! Realm()
-        guard let outbound = rlm.objects(OutboundTweet).sorted("date").first else {
+        guard let outbound = rlm.allObjects(ofType: OutboundTweet.self).sorted(onProperty: "date").first else {
             return
         }
         self.postTweet(rlm, outbound: outbound)
@@ -124,16 +123,19 @@ class TweetViewController: UITableViewController {
         let params = [
             "status" : "\(outbound.message), \(outbound.date)"
         ]
-        let slReq = SLRequest(forServiceType: SLServiceTypeTwitter, requestMethod: .post, url: statusUpdateURL, parameters: params)
-        slReq.account = account
-        slReq.perform { data, response, error in
+        let slReq = SLRequest(forServiceType: SLServiceTypeTwitter, requestMethod: .POST, url: statusUpdateURL, parameters: params)
+        slReq?.account = account
+        slReq?.perform { data, response, error in
             guard error == nil else {
                 return
             }
-            let statusCode = response.statusCode
+            guard let statusCode = response?.statusCode else {
+                debugPrint("error: no response object: SLRequest for \(self.statusUpdateURL)")
+                return
+            }
             if statusCode >= 400 {
                 debugPrint("Twitter Error (if it's 429, then it's rate-limiting):", response)
-                debugPrint(NSString(data: data, encoding: String.Encoding.utf8))
+                debugPrint(NSString(data: data!, encoding: String.Encoding.utf8.rawValue))
                 return
             }
             DispatchQueue.main.async {
@@ -145,17 +147,20 @@ class TweetViewController: UITableViewController {
     }
     
     func fetchTimeline() {
-        let slReq = SLRequest(forServiceType: SLServiceTypeTwitter, requestMethod: .get, url: timelineURL, parameters: nil)
-        slReq.account = account
+        let slReq = SLRequest(forServiceType: SLServiceTypeTwitter, requestMethod: .GET, url: timelineURL, parameters: nil)
+        slReq?.account = account
         
-        slReq.perform { data, response, error in
+        slReq?.perform { data, response, error in
             guard error == nil else {
                 return
             }
-            let statusCode = response.statusCode
+            guard let statusCode = response?.statusCode else {
+                debugPrint("error: no response object: SLRequest for \(self.timelineURL)")
+                return
+            }
             if statusCode >= 400 {
                 debugPrint("Twitter Error (if it's 429, then it's rate-limiting):", response)
-                debugPrint(NSString(data: data, encoding: String.Encoding.utf8))
+                debugPrint(NSString(data: data!, encoding: String.Encoding.utf8.rawValue))
                 return
             }
             
