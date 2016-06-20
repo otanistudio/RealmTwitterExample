@@ -7,10 +7,9 @@
 //
 
 import Foundation
-import Freddy
 import RealmSwift
 
-final class Tweet: Object {
+final class Tweet: RealmSwift.Object {
     dynamic var id = 0
     dynamic var message: String!
     
@@ -18,11 +17,9 @@ final class Tweet: Object {
         return "id"
     }
     
-    convenience init(json: JSON) throws {
-        self.init(
-            value: [
-                "id" : try json.int("id"),
-                "message" : try json.string("text")
-            ])
+    convenience init(id: Int, message: String) throws {
+        self.init()
+        self.id = id
+        self.message = message
     }
 }

@@ -7,27 +7,23 @@
 //
 
 import Foundation
-import Freddy
 import RealmSwift
 
-final class OutboundTweet: Object {
+final class OutboundTweet: RealmSwift.Object {
     dynamic var key: String!
     dynamic var message: String!
-    dynamic var date: NSDate!
+    dynamic var date: Date!
     
     override static func primaryKey() -> String? {
         return "key"
     }
     
     convenience init(message: String) throws {
-        let _date = NSDate()
-        self.init(
-            value: [
-                "key" : "\(message) \(_date)",
-                "message": message,
-                "date": _date
-            ]
-        )
+        self.init()
+        let _date = Date()
+        self.date = _date
+        self.key = "\(message) \(_date)"
+        self.message = message
     }
     
 }

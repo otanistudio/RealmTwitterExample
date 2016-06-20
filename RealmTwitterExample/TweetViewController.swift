@@ -7,7 +7,6 @@
 //
 
 import Accounts
-import Freddy
 import RealmSwift
 import Social
 import UIKit
@@ -25,17 +24,17 @@ class TweetViewController: UITableViewController {
     var tweets: Results<Tweet>!
     var outboundTweets: Results<OutboundTweet>!
     
-    var inboundTimer: NSTimer?
-    var outboundTimer: NSTimer?
+    var inboundTimer: Timer?
+    var outboundTimer: Timer?
     
-    let timelineURL = NSURL(string: "https://api.twitter.com/1.1/statuses/user_timeline.json")!  // rate lmited to 180 / 15min
-    let inboundInterval: NSTimeInterval = 8.0
+    let timelineURL = URL(string: "https://api.twitter.com/1.1/statuses/user_timeline.json")!  // rate lmited to 180 / 15min
+    let inboundInterval: TimeInterval = 8.0
 //    let timelineURL = NSURL(string: "https://api.twitter.com/1.1/statuses/home_timeline.json")! //   rate limited to 15 / 15min
 //    let inboundInterval = 60.0
-    let statusUpdateURL = NSURL(string: "https://api.twitter.com/1.1/statuses/update.json")!
-    let outboundInterval: NSTimeInterval = 60.0
+    let statusUpdateURL = URL(string: "https://api.twitter.com/1.1/statuses/update.json")!
+    let outboundInterval: TimeInterval = 60.0
     
-    let sendQueue = dispatch_queue_create("send_queue", nil)
+    let uploadQueue = DispatchQueue(label: "com.otanistudio.example.upload_queue", attributes: [])
     
     var account: ACAccount!
     let realm = try! Realm()
@@ -55,23 +54,22 @@ class TweetViewController: UITableViewController {
         // So we'll know which file to open in the OS X Realm Browser
         debugPrint("Realm file location:", Realm.Configuration.defaultConfiguration.fileURL)
         
-        tweets = realm.objects(Tweet).sorted("id", ascending: false)
-        outboundTweets = realm.objects(OutboundTweet).sorted("date")
-            
+        tweets = realm.allObjects(ofType: Tweet.self).sorted(onProperty: "id", ascending: false)
+        outboundTweets = realm.allObjects(ofType: OutboundTweet.self).sorted(onProperty: "date")
         self.navigationItem.rightBarButtonItem?.target = self
         self.navigationItem.rightBarButtonItem?.action = #selector(addTweet)
-        
+
         outboundNotificationToken = outboundTweets.addNotificationBlock{ (changes: RealmCollectionChange) in
             switch changes {
             case .Initial:
-                let indexSet = NSIndexSet(index: Section.Outbound)
-                self.tableView.reloadSections(indexSet, withRowAnimation: .Fade)
+                let indexSet = IndexSet(integer: Section.Outbound)
+                self.tableView.reloadSections(indexSet, with: .fade)
                 break
             case .Update(_, let deletions, let insertions, let modifications):
                 self.tableView.beginUpdates()
-                self.tableView.insertRowsAtIndexPaths(insertions.map { NSIndexPath(forRow: $0, inSection: Section.Outbound) }, withRowAnimation: .Fade)
-                self.tableView.deleteRowsAtIndexPaths(deletions.map { NSIndexPath(forRow: $0, inSection: Section.Outbound) }, withRowAnimation: .Fade)
-                self.tableView.reloadRowsAtIndexPaths(modifications.map { NSIndexPath(forRow: $0, inSection: Section.Outbound) }, withRowAnimation: .Fade)
+                self.tableView.insertRows(at: insertions.map { IndexPath(row: $0, section: Section.Outbound) }, with: .fade)
+                self.tableView.deleteRows(at: deletions.map { IndexPath(row: $0, section: Section.Outbound) }, with: .fade)
+                self.tableView.reloadRows(at: modifications.map { IndexPath(row: $0, section: Section.Outbound) }, with: .fade)
                 self.tableView.endUpdates()
                 break
             case .Error(let error):
@@ -83,14 +81,14 @@ class TweetViewController: UITableViewController {
         inboundNotificationToken = tweets.addNotificationBlock{ (changes: RealmCollectionChange) in
             switch changes {
             case .Initial:
-                let indexSet = NSIndexSet(index: Section.Timeline)
-                self.tableView.reloadSections(indexSet, withRowAnimation: .Fade)
+                let indexSet = IndexSet(integer: Section.Timeline)
+                self.tableView.reloadSections(indexSet, with: .fade)
                 break
             case .Update(_, let deletions, let insertions, let modifications):
                 self.tableView.beginUpdates()
-                self.tableView.insertRowsAtIndexPaths(insertions.map { NSIndexPath(forRow: $0, inSection: Section.Timeline) }, withRowAnimation: .Fade)
-                self.tableView.deleteRowsAtIndexPaths(deletions.map { NSIndexPath(forRow: $0, inSection: Section.Timeline) }, withRowAnimation: .Fade)
-                self.tableView.reloadRowsAtIndexPaths(modifications.map { NSIndexPath(forRow: $0, inSection: Section.Timeline) }, withRowAnimation: .Fade)
+                self.tableView.insertRows(at: insertions.map { IndexPath(row: $0, section: Section.Timeline) }, with: .fade)
+                self.tableView.deleteRows(at: deletions.map { IndexPath(row: $0, section: Section.Timeline) }, with: .fade)
+                self.tableView.reloadRows(at: modifications.map { IndexPath(row: $0, section: Section.Timeline) }, with: .fade)
                 self.tableView.endUpdates()
                 break
             case .Error(let error):
@@ -99,8 +97,8 @@ class TweetViewController: UITableViewController {
             }
         }
         
-        inboundTimer = NSTimer.scheduledTimerWithTimeInterval(inboundInterval, target: self, selector: #selector(fetchTimeline), userInfo: nil, repeats: true)
-        outboundTimer = NSTimer.scheduledTimerWithTimeInterval(outboundInterval, target: self, selector: #selector(send), userInfo: nil, repeats: true)
+        inboundTimer = Timer.scheduledTimer(timeInterval: inboundInterval, target: self, selector: #selector(fetchTimeline), userInfo: nil, repeats: true)
+        outboundTimer = Timer.scheduledTimer(timeInterval: outboundInterval, target: self, selector: #selector(send), userInfo: nil, repeats: true)
         
         fetchTimeline()
     }
@@ -108,64 +106,84 @@ class TweetViewController: UITableViewController {
     func addTweet() {
         let rlm = try! Realm()
         try! rlm.write {
-            let outbound = try! OutboundTweet(message: "added by a button")
+            let outbound = try! OutboundTweet(message: "MOAR TWEETS")
             rlm.add(outbound, update: true)
         }
     }
     
     func send() {
-        let rlm = try! Realm()
-        guard let outbound = rlm.objects(OutboundTweet).sorted("date").first else {
-            return
+        uploadQueue.async {
+            let rlm = try! Realm()
+            guard let outbound = rlm.allObjects(ofType: OutboundTweet.self).sorted(onProperty: "date").first else {
+                return
+            }
+            self.postTweet(outbound: outbound)
         }
-        self.postTweet(rlm, outbound: outbound)
     }
     
-    func postTweet(rlm: Realm, outbound: OutboundTweet) {
+    func postTweet(outbound: OutboundTweet) {
         let params = [
-            "status" : "\(outbound.message), \(outbound.date)"
+            "status" : "\(outbound.message!), \(outbound.date!)"
         ]
-        let slReq = SLRequest(forServiceType: SLServiceTypeTwitter, requestMethod: .POST, URL: statusUpdateURL, parameters: params)
-        slReq.account = account
-        slReq.performRequestWithHandler { data, response, error in
+        let outboundKey = outbound.key!
+        let slReq = SLRequest(forServiceType: SLServiceTypeTwitter, requestMethod: .POST, url: statusUpdateURL, parameters: params)
+        slReq?.account = account
+        slReq?.perform { data, response, error in
             guard error == nil else {
                 return
             }
-            let statusCode = response.statusCode
-            if statusCode >= 400 {
-                debugPrint("Twitter Error (if it's 429, then it's rate-limiting):", response)
-                debugPrint(NSString(data: data, encoding: NSUTF8StringEncoding))
+            guard let statusCode = response?.statusCode else {
+                debugPrint("error: no response object: SLRequest for \(self.statusUpdateURL)")
                 return
             }
-            dispatch_async(dispatch_get_main_queue()) {
-                try! rlm.write {
-                    rlm.delete(outbound)
+            if statusCode >= 400 {
+                debugPrint("Twitter Error (if it's 429, then it's rate-limiting):", response)
+                debugPrint(NSString(data: data!, encoding: String.Encoding.utf8.rawValue))
+                return
+            }
+            
+            self.uploadQueue.async {
+                let deletionRealm = try! Realm()
+                try! deletionRealm.write {
+                    let outboundToDelete = deletionRealm.object(ofType: OutboundTweet.self, forPrimaryKey: outboundKey)!
+                    deletionRealm.delete(outboundToDelete)
                 }
             }
         }
     }
     
     func fetchTimeline() {
-        let slReq = SLRequest(forServiceType: SLServiceTypeTwitter, requestMethod: .GET, URL: timelineURL, parameters: nil)
-        slReq.account = account
+        let slReq = SLRequest(forServiceType: SLServiceTypeTwitter, requestMethod: .GET, url: timelineURL, parameters: nil)
+        slReq?.account = account
         
-        slReq.performRequestWithHandler { data, response, error in
+        slReq?.perform { data, response, error in
             guard error == nil else {
                 return
             }
-            let statusCode = response.statusCode
+            guard let statusCode = response?.statusCode else {
+                debugPrint("error: no response object: SLRequest for \(self.timelineURL)")
+                return
+            }
             if statusCode >= 400 {
                 debugPrint("Twitter Error (if it's 429, then it's rate-limiting):", response)
-                debugPrint(NSString(data: data, encoding: NSUTF8StringEncoding))
+                debugPrint(NSString(data: data!, encoding: String.Encoding.utf8.rawValue))
                 return
             }
             
+            guard let jsonData = data else {
+                debugPrint("failed to get data in response while fetching \(self.timelineURL)")
+                return
+            }
             
-            let responseJSON = try! JSON(data: data)
+            let jsonArray = try! JSONSerialization.jsonObject(with: jsonData, options: .mutableLeaves) as! Array<AnyObject>
+            
             let rlm = try! Realm()
             try! rlm.write {
-                let rlmTweets = try! responseJSON.array().map { tweetJSON -> Tweet in
-                    return try! Tweet(json: tweetJSON)
+                let rlmTweets = jsonArray.map { tweetJSON -> Tweet in
+                    let tweetDict = tweetJSON as! [String : AnyObject]
+                    let id: Int = tweetDict["id"] as! Int
+                    let message: String = tweetDict["text"] as! String
+                    return try! Tweet(id: id, message: message)
                 }
                 rlm.add(rlmTweets, update: true)
             }
@@ -174,11 +192,11 @@ class TweetViewController: UITableViewController {
 
     // MARK: - Table view data source
 
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return 2
     }
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == Section.Outbound {
             return outboundTweets.count
         }
@@ -188,27 +206,27 @@ class TweetViewController: UITableViewController {
         return 0
     }
 
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        if indexPath.section == Section.Timeline {
-            let cell = tableView.dequeueReusableCellWithIdentifier(TweetCell.reuseID, forIndexPath: indexPath)
-            cell.textLabel?.text = tweets[indexPath.row].message
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if (indexPath as NSIndexPath).section == Section.Timeline {
+            let cell = tableView.dequeueReusableCell(withIdentifier: TweetCell.reuseID, for: indexPath)
+            cell.textLabel?.text = tweets[(indexPath as NSIndexPath).row].message
             return cell
         }
-        let cell = tableView.dequeueReusableCellWithIdentifier(TweetCell.reuseID, forIndexPath: indexPath)
-        let outbound = outboundTweets[indexPath.row]
-        cell.textLabel?.text = "\(outbound.message), \(outbound.date)"
+        let cell = tableView.dequeueReusableCell(withIdentifier: TweetCell.reuseID, for: indexPath)
+        let outbound = outboundTweets[(indexPath as NSIndexPath).row]
+        cell.textLabel?.text = "\(outbound.message!), \(outbound.date!)"
         return cell
     }
     
-    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let label = UILabel(frame: CGRect(x: 0.0, y: 0.0, width: tableView.frame.size.width - 30.0, height: 44.0))
-        label.backgroundColor = UIColor.darkGrayColor()
-        label.textColor = UIColor.whiteColor()
-        label.font = UIFont.systemFontOfSize(12.0)
+        label.backgroundColor = UIColor.darkGray()
+        label.textColor = UIColor.white()
+        label.font = UIFont.systemFont(ofSize: 12.0)
         if section == Section.Timeline {
-            label.text = " Timeline".uppercaseString
+            label.text = " Timeline".uppercased()
         } else {
-            label.text = " Outbound".uppercaseString
+            label.text = " Outbound".uppercased()
         }
         
         return label

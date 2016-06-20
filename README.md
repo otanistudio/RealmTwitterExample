@@ -1,5 +1,5 @@
-
 # RealmTwitterExample
+
 This example code demonstrates posts and feed refreshing happening simultaneously, using [Realm](https://realm.io) as the persistence layer. Used as a live demo of how the basics work in context of async networking, and delayed spooler-type uploads, with reads and writes in different threads to update the display of Tweets in a UITableViewController.
 
 Because this is sample code, posts and refreshing happens via naive polling in the app's main view controller. However, data updates happen by responding to Realm notifications, and then updating the UI in the main thread (Realm notifications in the view controller are set-up here to happen the main run loop by default.)
@@ -7,15 +7,17 @@ Because this is sample code, posts and refreshing happens via naive polling in t
 <img src="https://cloud.githubusercontent.com/assets/517428/16182411/b92b066a-365a-11e6-9e43-fc4b6b204f3c.gif" width="420" height="345" />
 
 ## Setup
+
 After cloning, make sure submodules are updated. If you're uncomfortable with submodules, running `scripts/setup.sh` should help you get going.
 
 ## Test Account Recommended
+
 This example will post timestamp Tweets to whatever Twitter account you choose via iOS Settings. Unless you want these weird-looking timestamp tweets in your personal Twitter timeline, you should setup a test account for this information.
 
 _Reminder:_ The [Twitter API](https://dev.twitter.com/rest/reference/get/statuses/user_timeline) is rate-limited, so be wary when you update the default time interval, which are set to conservative defaults.
 
-## Swift 3
+## XCode 8 Required
 
-I wrote this code a month before the release of XCode 8, but successfully used the Beta-1 migration tool after removing some dependencies (props to .) Those changes are in the [`swift3`](https://github.com/otanistudio/RealmTwitterExample/tree/swift3) branch.
+I wrote this code a month before the release of XCode 8. The Beta-1 migration tool was good enough to successfully migrate this app's code.
 
-You'll notice a spew of messages in the console with keywords like `nw_connection_endpoint_report`. I'm dumb-guessing, but it seems to be coming from networking extension dependencies in `SLRequest`. Filing a radar, of course, but not digging in any further unless we still see these in later Betas.
+As of this writing, there's a spew of messages in the console with keywords like `nw_connection_endpoint_report`. Dumb-guessing, but it seems to be coming from networking extension dependencies in `SLRequest`. Filing a radar, of course, but not digging in any further unless we still see these in later Betas.
