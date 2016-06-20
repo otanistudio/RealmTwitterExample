@@ -34,7 +34,7 @@ class TweetViewController: UITableViewController {
     let statusUpdateURL = URL(string: "https://api.twitter.com/1.1/statuses/update.json")!
     let outboundInterval: TimeInterval = 60.0
     
-    let sendQueue = DispatchQueue(label: "send_queue", attributes: [])
+    let uploadQueue = DispatchQueue(label: "com.otanistudio.example.upload_queue", attributes: [])
     
     var account: ACAccount!
     let realm = try! Realm()
@@ -106,23 +106,26 @@ class TweetViewController: UITableViewController {
     func addTweet() {
         let rlm = try! Realm()
         try! rlm.write {
-            let outbound = try! OutboundTweet(message: "added by a button")
+            let outbound = try! OutboundTweet(message: "MOAR TWEETS")
             rlm.add(outbound, update: true)
         }
     }
     
     func send() {
-        let rlm = try! Realm()
-        guard let outbound = rlm.allObjects(ofType: OutboundTweet.self).sorted(onProperty: "date").first else {
-            return
+        uploadQueue.async {
+            let rlm = try! Realm()
+            guard let outbound = rlm.allObjects(ofType: OutboundTweet.self).sorted(onProperty: "date").first else {
+                return
+            }
+            self.postTweet(outbound: outbound)
         }
-        self.postTweet(rlm, outbound: outbound)
     }
     
-    func postTweet(_ rlm: Realm, outbound: OutboundTweet) {
+    func postTweet(outbound: OutboundTweet) {
         let params = [
-            "status" : "\(outbound.message), \(outbound.date)"
+            "status" : "\(outbound.message!), \(outbound.date!)"
         ]
+        let outboundKey = outbound.key!
         let slReq = SLRequest(forServiceType: SLServiceTypeTwitter, requestMethod: .POST, url: statusUpdateURL, parameters: params)
         slReq?.account = account
         slReq?.perform { data, response, error in
@@ -138,9 +141,12 @@ class TweetViewController: UITableViewController {
                 debugPrint(NSString(data: data!, encoding: String.Encoding.utf8.rawValue))
                 return
             }
-            DispatchQueue.main.async {
-                try! rlm.write {
-                    rlm.delete(outbound)
+            
+            self.uploadQueue.async {
+                let deletionRealm = try! Realm()
+                try! deletionRealm.write {
+                    let outboundToDelete = deletionRealm.object(ofType: OutboundTweet.self, forPrimaryKey: outboundKey)!
+                    deletionRealm.delete(outboundToDelete)
                 }
             }
         }
