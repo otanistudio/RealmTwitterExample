@@ -13,3 +13,9 @@ After cloning, make sure submodules are updated. If you're uncomfortable with su
 This example will post timestamp Tweets to whatever Twitter account you choose via iOS Settings. Unless you want these weird-looking timestamp tweets in your personal Twitter timeline, you should setup a test account for this information.
 
 _Reminder:_ The [Twitter API](https://dev.twitter.com/rest/reference/get/statuses/user_timeline) is rate-limited, so be wary when you update the default time interval, which are set to conservative defaults.
+
+## Swift 3
+
+I wrote this code a month before the release of XCode 8, but successfully used the Beta-1 migration tool after removing some dependencies (props to .) Those changes are in the [`swift3`](https://github.com/otanistudio/RealmTwitterExample/tree/swift3) branch.
+
+You'll notice a spew of messages in the console with keywords like `nw_connection_endpoint_report`. I'm dumb-guessing, but it seems to be coming from networking extension dependencies in `SLRequest`. Filing a radar, of course, but not digging in any further unless we still see these in later Betas.
