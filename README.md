@@ -16,7 +16,7 @@ This example will post timestamp Tweets to whatever Twitter account you choose v
 
 _Reminder:_ The [Twitter API](https://dev.twitter.com/rest/reference/get/statuses/user_timeline) is rate-limited, so be wary when you update the default time interval, which are set to conservative defaults.
 
-## XCode 8 Required
+## XCode 8 & Swift 3 Required
 
 I wrote this code a month before the release of XCode 8. The Beta-1 migration tool was good enough to successfully migrate this app's code.
 
