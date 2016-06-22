@@ -20,4 +20,4 @@ _Reminder:_ The [Twitter API](https://dev.twitter.com/rest/reference/get/statuse
 
 I wrote this code a month before the release of XCode 8. The Beta-1 migration tool was good enough to successfully migrate this app's code.
 
-As of this writing, there's a spew of messages in the console with keywords like `nw_connection_endpoint_report`. Dumb-guessing, but it seems to be coming from networking extension dependencies in `SLRequest`. Filing a radar, of course, but not digging in any further unless we still see these in later Betas.
+As of this writing, there's a spew of messages in the console with keywords like `nw_connection_endpoint_report`. Dumb-guessing, but it seems to be coming from networking dependencies in the Realm framework. Will be filing an issue if it's not already there.
